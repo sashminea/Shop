@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from 'react';
+import ProductDetail from './ProductDetail'
 
-const ProductList = ({ products, setProducts, addToCart }) => { // Ensure you receive 'addToCart' as a prop
+
+const ProductList = ({ products, setProducts, addToCart }) => {
     const [productName, setProductName] = React.useState('');
     const [productPrice, setProductPrice] = React.useState('');
+    const [selectedProduct, setSelectedProduct] = React.useState(null);
+
+    const openProductDetail = (product) => {
+        setSelectedProduct(product);
+    };
+
+    const closeProductDetail = () => {
+        setSelectedProduct(null);
+    };
 
     const addProduct = () => {
         if (productName && productPrice) {
@@ -17,8 +28,18 @@ const ProductList = ({ products, setProducts, addToCart }) => { // Ensure you re
         }
     };
 
+    const updateQuantity = (product, newQuantity) => {
+        const updatedProducts = products.map((p) => {
+            if (p.id === product.id) {
+                return { ...p, quantity: parseInt(newQuantity, 10) };
+            }
+            return p;
+        });
+        setProducts(updatedProducts);
+    };
+
     return (
-        <div className="ProductList">
+        <div className="ProductList-list">
             <h2>Product List</h2>
 
             <form>
@@ -47,10 +68,21 @@ const ProductList = ({ products, setProducts, addToCart }) => { // Ensure you re
                 {products.map((product) => (
                     <li key={product.id}>
                         {product.name} - ${product.price.toFixed(2)}
+                        <input
+                            type="number"
+                            min="1"
+                            value={product.quantity || 1}
+                            onChange={(e) => updateQuantity(product, e.target.value)}
+                        />
                         <button onClick={() => addToCart(product)}>Add to Cart</button>
+                        <button onClick={() => openProductDetail(product)}>Details</button>
                     </li>
                 ))}
             </ul>
+
+            {selectedProduct && (
+                <ProductDetail product={selectedProduct} onClose={closeProductDetail} />
+            )}
         </div>
     );
 };

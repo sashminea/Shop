@@ -1,37 +1,118 @@
-/* src/styles.css */
-
-.App {
-    text-align: center;
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
-h1 {
-    font-size: 2rem;
-    color: #333;
-}
-
-.ProductList {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
-    text-align: center;
-}
-
-ul {
+.ProductList-list {
     list-style: none;
     padding: 0;
-}
-
-li {
-    margin: 10px 0;
-    font-size: 1.2rem;
+    margin: 0;
 }
 
 button {
+    border-radius: 10px;
+}
+
+.ProductList-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+}
+
+.ProductList-list input[type="number"] {
+    width: 50px;
+    text-align: center;
+}
+
+.ProductList-list button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 5px 10px;
     cursor: pointer;
+    margin-left: 10px;
+}
+
+.Cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.Cart-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+}
+
+.Cart-list button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Add CSS for Checkout Component */
+.Checkout {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.Checkout h2 {
+    margin-bottom: 20px;
+}
+
+.Checkout form {
+    display: flex;
+    flex-direction: column;
+}
+
+.Checkout form div {
+    margin-bottom: 10px;
+}
+
+.Checkout form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.Checkout form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.Checkout form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Style the "Proceed to Checkout" button */
+.App button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Hover effect for the button */
+.App button:hover {
+    background-color: #0056b3;
 }
