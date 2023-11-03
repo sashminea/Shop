@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import ProductList from "./components/ProductList";
+import './index.css';
+import Cart from './components/Cart';
+import React from 'react';
 
 function App() {
+  const [cart, setCart] = React.useState([]);
+
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  const [products, setProducts] = React.useState([
+    { id: 1, name: 'Product 1', price: 10.99 },
+    { id: 2, name: 'Product 2', price: 15.99 },
+    // Add more products here
+  ]);
+
+  const removeFromCart = (product) => {
+    const updatedCart = cart.filter((item) => item.id !== product.id);
+    setCart(updatedCart);
+  };
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>My React Shop</h1>
+      <ProductList products={products} setProducts={setProducts} addToCart={addToCart} />
+      <Cart cart={cart} removeFromCart={removeFromCart} />
     </div>
   );
 }
