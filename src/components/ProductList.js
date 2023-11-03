@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ProductDetail from './ProductDetail'
 
 
@@ -6,6 +6,8 @@ const ProductList = ({ products, setProducts, addToCart }) => {
     const [productName, setProductName] = React.useState('');
     const [productPrice, setProductPrice] = React.useState('');
     const [selectedProduct, setSelectedProduct] = React.useState(null);
+    const [showProductForm, setShowProductForm] = React.useState(false);
+
 
     const openProductDetail = (product) => {
         setSelectedProduct(product);
@@ -15,7 +17,16 @@ const ProductList = ({ products, setProducts, addToCart }) => {
         setSelectedProduct(null);
     };
 
-    const addProduct = () => {
+    const removeProduct = (productId) => {
+        // Filter out the product to remove it from the product list
+        const updatedProducts = products.filter((product) => product.id !== productId);
+        setProducts(updatedProducts);
+    };
+
+    const addProduct = (e) => {
+
+        e.preventDefault();
+
         if (productName && productPrice) {
             const newProduct = {
                 id: Date.now(),
@@ -26,6 +37,7 @@ const ProductList = ({ products, setProducts, addToCart }) => {
             setProductName(''); // Clear the input field after adding
             setProductPrice(''); // Clear the input field after adding
         }
+
     };
 
     const updateQuantity = (product, newQuantity) => {
@@ -41,29 +53,30 @@ const ProductList = ({ products, setProducts, addToCart }) => {
     return (
         <div className="ProductList-list">
             <h2>Product List</h2>
+            {showProductForm && (
+                <form>
+                    <div>
+                        <label htmlFor="productName">Product Name:</label>
+                        <input
+                            type="text"
+                            id="productName"
+                            value={productName}
+                            onChange={(e) => setProductName(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="productPrice">Product Price:</label>
+                        <input
+                            type="number"
+                            id="productPrice"
+                            value={productPrice}
+                            onChange={(e) => setProductPrice(e.target.value)}
+                        />
+                    </div>
+                    <button onClick={addProduct}>Add Product</button>
+                </form>)}
 
-            <form>
-                <div>
-                    <label htmlFor="productName">Product Name:</label>
-                    <input
-                        type="text"
-                        id="productName"
-                        value={productName}
-                        onChange={(e) => setProductName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="productPrice">Product Price:</label>
-                    <input
-                        type="number"
-                        id="productPrice"
-                        value={productPrice}
-                        onChange={(e) => setProductPrice(e.target.value)}
-                    />
-                </div>
-            </form>
 
-            <button onClick={addProduct}>Add Product</button>
             <ul>
                 {products.map((product) => (
                     <li key={product.id}>
@@ -76,6 +89,7 @@ const ProductList = ({ products, setProducts, addToCart }) => {
                         />
                         <button onClick={() => addToCart(product)}>Add to Cart</button>
                         <button onClick={() => openProductDetail(product)}>Details</button>
+                        <button onClick={() => removeProduct(product.id)}>Remove</button>
                     </li>
                 ))}
             </ul>
@@ -83,6 +97,11 @@ const ProductList = ({ products, setProducts, addToCart }) => {
             {selectedProduct && (
                 <ProductDetail product={selectedProduct} onClose={closeProductDetail} />
             )}
+
+            <button onClick={() => setShowProductForm(!showProductForm)}>
+                {showProductForm ? 'Hide Form' : 'Add New Product'}
+            </button>
+
         </div>
     );
 };

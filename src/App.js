@@ -7,7 +7,6 @@ import { useState } from "react";
 
 function App() {
 
-
   const [cart, setCart] = React.useState([]);
 
 
@@ -31,8 +30,8 @@ function App() {
 
 
   const [products, setProducts] = React.useState([
-    { id: 1, name: 'Product 1', price: 10.99 },
-    { id: 2, name: 'Product 2', price: 15.99 },
+    { id: 1, name: 'Furniture', price: 10.99 },
+    { id: 2, name: 'Water', price: 1.2 },
     // Add more products here
   ]);
 
