@@ -1,3 +1,3 @@
 # Shop
 
-A simple shopping site made from React.
+A simple shopping site made with React.
